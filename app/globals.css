@@ -1,0 +1,103 @@
+@import 'tailwindcss';
+
+/* Custom CSS properties for journal theming */
+@theme {
+  /* Paper colors */
+  --color-paper-cream: #f5f0e1;
+  --color-paper-aged: #e8dcc4;
+  --color-paper-dark: #d4c4a8;
+  --color-paper-stained: #c9b896;
+
+  /* Ink and text colors */
+  --color-ink-brown: #3d2914;
+  --color-ink-sepia: #704214;
+  --color-ink-faded: #8b7355;
+
+  /* Accent colors */
+  --color-wax-red: #8b2323;
+  --color-wax-burgundy: #6b1c1c;
+  --color-coffee-stain: #a67b5b;
+  --color-coffee-light: #c4a882;
+  --color-tape-cream: #f0e6d3;
+  --color-lace-ivory: #faf8f5;
+
+  /* Background */
+  --color-desk-wood: #2c1810;
+  --color-desk-dark: #1a0f0a;
+
+  /* Shadows */
+  --shadow-paper: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-lifted: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  --shadow-page: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Global styles */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: linear-gradient(135deg, var(--color-desk-wood) 0%, var(--color-desk-dark) 100%);
+}
+
+/* Paper texture utility class */
+.paper-texture {
+  position: relative;
+}
+
+.paper-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/textures/paper-grain.png');
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Torn edge effect */
+.torn-edge {
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+/* Aged paper effect */
+.aged-effect {
+  filter: sepia(0.1) contrast(0.95) brightness(0.98);
+}
+
+/* Handwriting text style */
+.handwriting {
+  font-family: var(--font-caveat), cursive;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+/* Typewriter text style */
+.typewriter {
+  font-family: var(--font-special-elite), monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Vintage serif style */
+.vintage-serif {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* 3D perspective container */
+.perspective-container {
+  perspective: 2000px;
+  perspective-origin: center center;
+}
+
+/* Preserve 3D for children */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Hide backface */
+.backface-hidden {
+  backface-visibility: hidden;
+}
