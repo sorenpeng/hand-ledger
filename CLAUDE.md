@@ -5,7 +5,7 @@ A Junk Journaling visual art website - an immersive digital experience simulatin
 ## Tech Stack
 
 - Bun (runtime & package manager)
-- Next.js 15 (App Router)
+- Next.js 16 (App Router)
 - Tailwind CSS v4
 - shadcn/ui (base components)
 - Framer Motion (animations)
