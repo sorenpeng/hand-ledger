@@ -33,7 +33,13 @@ export type PageState = 'closed' | 'flipping' | 'open';
 /**
  * Interactive element types
  */
-export type InteractiveElementType = 'pocket' | 'envelope' | 'flipout' | 'bellyband' | 'pulltab' | 'tag';
+export type InteractiveElementType =
+  | 'pocket'
+  | 'envelope'
+  | 'flipout'
+  | 'bellyband'
+  | 'pulltab'
+  | 'tag';
 
 /**
  * Layer depth levels

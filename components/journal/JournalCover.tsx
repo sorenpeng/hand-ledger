@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { easings } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 interface JournalCoverProps {
   isOpen: boolean;
@@ -13,11 +13,7 @@ interface JournalCoverProps {
 export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps) {
   return (
     <motion.div
-      className={cn(
-        'absolute inset-0 cursor-pointer',
-        'origin-left preserve-3d',
-        className
-      )}
+      className={cn('absolute inset-0 cursor-pointer', 'origin-left preserve-3d', className)}
       initial={false}
       animate={{
         rotateY: isOpen ? -170 : 0,
@@ -38,7 +34,7 @@ export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps)
           'bg-gradient-to-br from-amber-900 via-amber-800 to-amber-950',
           'rounded-r-sm shadow-lifted',
           'flex flex-col items-center justify-center',
-          'border-r-4 border-amber-950/50'
+          'border-r-4 border-amber-950/50',
         )}
       >
         {/* Cover texture overlay */}
@@ -60,9 +56,7 @@ export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps)
             Hand Ledger
           </h1>
           <div className="w-32 h-px bg-amber-600/40 mx-auto my-4" />
-          <p className="handwriting text-xl text-amber-200/70">
-            A Junk Journal
-          </p>
+          <p className="handwriting text-xl text-amber-200/70">A Junk Journal</p>
         </div>
 
         {/* Corner decorations */}
@@ -86,7 +80,7 @@ export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps)
           'absolute inset-0 backface-hidden',
           'bg-paper-cream',
           'rounded-l-sm',
-          '[transform:rotateY(180deg)]'
+          '[transform:rotateY(180deg)]',
         )}
       >
         {/* Inside cover content */}
@@ -99,7 +93,8 @@ export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps)
             <p className="mb-4">This journal belongs to...</p>
             <div className="w-48 h-px bg-ink-sepia/30 mb-8" />
             <p className="text-sm text-ink-faded italic">
-              &quot;Every page tells a story,<br />
+              &quot;Every page tells a story,
+              <br />
               every pocket holds a secret.&quot;
             </p>
           </div>

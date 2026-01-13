@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import type { FlipDirection } from '@/types/journal';
 
 interface UsePageFlipReturn {
@@ -39,7 +39,7 @@ export function usePageFlip(totalPages: number): UsePageFlipReturn {
         setFlipDirection(null);
       }, 800);
     },
-    [currentPage, isFlipping, totalPages]
+    [currentPage, isFlipping, totalPages],
   );
 
   const goToPage = useCallback(
@@ -49,7 +49,7 @@ export function usePageFlip(totalPages: number): UsePageFlipReturn {
 
       setCurrentPage(pageIndex);
     },
-    [isFlipping, totalPages]
+    [isFlipping, totalPages],
   );
 
   return {
