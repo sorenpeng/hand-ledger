@@ -38,6 +38,14 @@
     }
   },
   "files": {
-    "includes": ["**", "!**/.next", "!**/node_modules", "!**/dist", "!**/bun.lock", "!**/*.css"]
+    "includes": [
+      "**",
+      "!**/.next",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/bun.lock",
+      "!**/*.css",
+      "!next-env.d.ts"
+    ]
   }
 }

@@ -2,33 +2,66 @@
 
 /* Custom CSS properties for journal theming */
 @theme {
-  /* Paper colors */
-  --color-paper-cream: #f5f0e1;
-  --color-paper-aged: #e8dcc4;
-  --color-paper-dark: #d4c4a8;
-  --color-paper-stained: #c9b896;
+  /* Paper colors - industrial/aged paper stock */
+  --color-paper-base: #f7f4ef;
+  --color-paper-cream: #f0ebe0;
+  --color-paper-aged: #e5ddd0;
+  --color-paper-dark: #d8cfc0;
+  --color-paper-stained: #ccc3b4;
+  --color-paper-shadow: #b8ae9c;
 
-  /* Ink and text colors */
-  --color-ink-brown: #3d2914;
-  --color-ink-sepia: #704214;
-  --color-ink-faded: #8b7355;
+  /* Ink and text colors - crisp black/grey */
+  --color-ink-black: #1a1a1a;
+  --color-ink-dark: #2d2d2d;
+  --color-ink-main: #3a3a3a;
+  --color-ink-muted: #6b6b6b;
+  --color-ink-faded: #9a9a9a;
+  /* Legacy aliases */
+  --color-ink-brown: #3a3a3a;
+  --color-ink-sepia: #4a4a4a;
 
-  /* Accent colors */
-  --color-wax-red: #8b2323;
-  --color-wax-burgundy: #6b1c1c;
-  --color-coffee-stain: #a67b5b;
-  --color-coffee-light: #c4a882;
+  /* Label colors - industrial warning */
+  --color-label-red: #c41e3a;
+  --color-label-red-dark: #9b1830;
+  --color-label-orange: #e65c00;
+  --color-label-yellow: #f5c400;
+  --color-label-black: #1a1a1a;
+  --color-label-white: #ffffff;
+
+  /* Tape colors */
+  --color-tape-masking: #e8dcc4;
+  --color-tape-translucent: rgba(255, 255, 255, 0.5);
+  --color-tape-security: #c41e3a;
   --color-tape-cream: #f0e6d3;
+
+  /* Cover colors - industrial black */
+  --color-cover-black: #1a1a1a;
+  --color-cover-dark: #252525;
+  --color-cover-edge: #0a0a0a;
+
+  /* Accent colors (legacy) */
+  --color-wax-red: #c41e3a;
+  --color-wax-burgundy: #9b1830;
+  --color-coffee-stain: #a08060;
+  --color-coffee-light: #c4a882;
   --color-lace-ivory: #faf8f5;
 
   /* Background */
-  --color-desk-wood: #2c1810;
-  --color-desk-dark: #1a0f0a;
+  --color-desk-wood: #1a1612;
+  --color-desk-dark: #0f0c0a;
 
-  /* Shadows */
+  /* Spread proportions - Moleskine Large */
+  --page-ratio: calc(5 / 8.25);
+  --spread-ratio: calc(10 / 8.25);
+  --gutter-width: 12px;
+
+  /* Shadows - ambient + contact */
+  --shadow-ambient: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --shadow-contact: 0 1px 3px rgba(0, 0, 0, 0.2);
   --shadow-paper: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --shadow-lifted: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   --shadow-page: 2px 0 10px rgba(0, 0, 0, 0.3);
+  --shadow-gutter: inset 8px 0 12px -8px rgba(0, 0, 0, 0.25), inset -8px 0 12px -8px rgba(0, 0, 0, 0.25);
 }
 
 /* Global styles */
@@ -43,6 +76,7 @@ body {
 }
 
 /* Paper texture utility class - uses SVG noise for grain effect */
+/* IMPORTANT: Textures use z-index: 1, content should use z-index: 10+ to stay crisp */
 .paper-texture {
   position: relative;
 }
@@ -51,15 +85,16 @@ body {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 1;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-  opacity: 0.15;
+  opacity: 0.08;
   pointer-events: none;
+  /* No mix-blend-mode - keeps text crisp */
 }
 
 /* Heavy paper texture for more aged look */
 .paper-texture-heavy::after {
-  opacity: 0.25;
+  opacity: 0.12;
 }
 
 /* Torn edge effect with shadow */
@@ -76,15 +111,101 @@ body {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: linear-gradient(
     135deg,
     transparent 0%,
-    rgba(139, 119, 85, 0.05) 25%,
+    rgba(180, 160, 130, 0.04) 25%,
     transparent 50%,
-    rgba(139, 119, 85, 0.08) 75%,
+    rgba(180, 160, 130, 0.06) 75%,
     transparent 100%
   );
   pointer-events: none;
+}
+
+/* Industrial label base style */
+.label-industrial {
+  font-family: var(--font-special-elite), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+/* Warning label - red with white text */
+.label-warning {
+  background-color: var(--color-label-red);
+  color: var(--color-label-white);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-family: var(--font-special-elite), monospace;
+}
+
+/* Masking tape strip */
+.tape-strip {
+  background-color: var(--color-tape-masking);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.tape-strip::before,
+.tape-strip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 50%,
+    transparent 100%
+  );
+}
+
+.tape-strip::before {
+  left: 0;
+}
+
+.tape-strip::after {
+  right: 0;
+}
+
+/* Security tape / caution stripe */
+.tape-security {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-label-red) 0px,
+    var(--color-label-red) 10px,
+    var(--color-label-white) 10px,
+    var(--color-label-white) 20px
+  );
+}
+
+/* Gutter/spine shadow for open spread */
+.gutter-shadow {
+  position: relative;
+}
+
+.gutter-shadow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: var(--gutter-width, 12px);
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.15) 40%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.15) 60%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+  pointer-events: none;
+  z-index: 30;
 }
 
 /* Vignette effect for pages */

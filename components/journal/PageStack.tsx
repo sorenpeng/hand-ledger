@@ -11,29 +11,49 @@ interface PageStackProps {
   className?: string;
 }
 
-// Sample pages showcasing junk journal aesthetic
+// Industrial junk journal pages with shipping sticker / warning label aesthetic
 const journalPages = [
   {
     id: 'page-1',
     frontContent: (
-      <div className="p-8 h-full flex flex-col">
-        <h2 className="vintage-serif text-2xl md:text-3xl text-ink-brown mb-4">Welcome</h2>
-        <p className="handwriting text-ink-sepia text-lg md:text-xl leading-relaxed">
-          This is your junk journal. Each page is a canvas for memories, ephemera, and beautiful
-          chaos.
+      <div className="p-6 md:p-8 h-full flex flex-col">
+        {/* Warning label header */}
+        <div className="inline-block bg-label-red px-3 py-1 mb-4 transform -rotate-0.5 self-start">
+          <span className="typewriter text-white text-xs tracking-widest">NOTICE</span>
+        </div>
+
+        <h2 className="typewriter text-xl md:text-2xl text-ink-black mb-4 tracking-wide">
+          DAILY LEDGER
+        </h2>
+
+        <p className="typewriter text-ink-main text-sm md:text-base leading-relaxed mb-6">
+          This journal contains collected ephemera, notes, and documentation. Handle with care.
         </p>
-        <div className="mt-auto">
-          <p className="typewriter text-ink-faded text-xs">click or swipe to turn pages</p>
+
+        {/* Masking tape accent */}
+        <div className="w-20 h-4 bg-tape-masking transform rotate-2 mb-4 opacity-70" />
+
+        <div className="mt-auto flex items-center gap-2">
+          <div className="flex-1 h-px bg-ink-muted/30" />
+          <p className="typewriter text-ink-faded text-[10px] tracking-wider">
+            SWIPE OR CLICK TO PROCEED
+          </p>
+          <div className="flex-1 h-px bg-ink-muted/30" />
         </div>
       </div>
     ),
     backContent: (
-      <div className="p-8 h-full">
-        <div className="h-full border-2 border-dashed border-ink-faded/20 rounded flex flex-col items-center justify-center gap-4">
-          <div className="w-24 h-24 rounded-full border-2 border-ink-faded/30 flex items-center justify-center">
-            <span className="handwriting text-ink-faded/50 text-2xl">✿</span>
+      <div className="p-6 md:p-8 h-full">
+        <div className="h-full border border-ink-muted/20 flex flex-col items-center justify-center gap-4">
+          {/* Industrial circle stamp */}
+          <div className="w-20 h-20 border-2 border-ink-muted/40 rounded-full flex items-center justify-center">
+            <span className="typewriter text-ink-muted/60 text-xs text-center leading-tight">
+              QUALITY
+              <br />
+              CONTROL
+            </span>
           </div>
-          <p className="typewriter text-ink-faded/40 text-xs">a space for something special</p>
+          <p className="typewriter text-ink-faded/50 text-[10px] tracking-wider">INSPECTION AREA</p>
         </div>
       </div>
     ),
@@ -41,39 +61,64 @@ const journalPages = [
   {
     id: 'page-2',
     frontContent: (
-      <div className="p-8 h-full">
-        <h2 className="vintage-serif text-xl md:text-2xl text-ink-brown mb-6">Collected Moments</h2>
-        <div className="space-y-4">
-          <div className="bg-paper-aged/50 p-4 rounded shadow-paper transform -rotate-1">
-            <p className="handwriting text-ink-sepia">Train ticket from Paris</p>
-            <p className="typewriter text-ink-faded text-xs mt-2">June 15, 2024</p>
+      <div className="p-6 md:p-8 h-full">
+        {/* Section label */}
+        <div className="inline-block bg-white border border-ink-muted/40 px-2 py-1 mb-4 transform rotate-0.5">
+          <span className="typewriter text-ink-main text-xs tracking-wide">SECTION 01</span>
+        </div>
+
+        <h2 className="typewriter text-lg md:text-xl text-ink-black mb-4 tracking-wide">
+          COLLECTED ITEMS
+        </h2>
+
+        <div className="space-y-3">
+          {/* Receipt-style item */}
+          <div className="bg-paper-aged/40 p-3 border-l-2 border-ink-main/30 transform -rotate-0.5">
+            <p className="typewriter text-ink-main text-sm">Transit Pass #4492</p>
+            <p className="typewriter text-ink-faded text-[10px] mt-1">DATE: 2024.06.15</p>
           </div>
-          <div className="bg-tape-cream/70 p-3 rounded shadow-paper transform rotate-2 ml-8">
-            <p className="handwriting text-ink-sepia text-sm">a pressed flower from the garden</p>
-          </div>
-          <div className="bg-paper-dark/30 p-4 rounded shadow-paper transform -rotate-2">
-            <p className="typewriter text-ink-faded text-xs">
-              &quot;The best things in life
+
+          {/* Taped note */}
+          <div className="relative bg-white p-3 shadow-contact transform rotate-1 ml-4">
+            <div className="absolute -top-2 left-4 w-12 h-3 bg-tape-masking opacity-70" />
+            <p className="typewriter text-ink-main text-xs leading-relaxed">
+              &quot;Document everything.
               <br />
-              are the moments we create.&quot;
+              Trust nothing.&quot;
+            </p>
+          </div>
+
+          {/* Warning strip */}
+          <div className="bg-label-red/10 border border-label-red/30 p-2 transform -rotate-0.5">
+            <p className="typewriter text-label-red text-[10px] tracking-wider">
+              CONFIDENTIAL MATERIAL
             </p>
           </div>
         </div>
       </div>
     ),
     backContent: (
-      <div className="p-8 h-full relative">
-        <div className="absolute top-6 right-6 w-16 h-16 rounded-full bg-wax-red/80 flex items-center justify-center shadow-lifted transform rotate-12">
-          <span className="text-paper-cream text-2xl">❦</span>
+      <div className="p-6 md:p-8 h-full relative">
+        {/* Red stamp */}
+        <div className="absolute top-4 right-4 w-14 h-14 border-2 border-label-red rounded-full flex items-center justify-center transform rotate-12 opacity-70">
+          <span className="typewriter text-label-red text-[8px] text-center leading-tight">
+            VERIFIED
+            <br />
+            2024
+          </span>
         </div>
+
         <div className="h-full flex items-center justify-center">
-          <p className="handwriting text-ink-sepia/60 text-center text-lg">
-            memories are
-            <br />
-            the architecture
-            <br />
-            of identity
-          </p>
+          <div className="text-center">
+            <p className="typewriter text-ink-muted text-sm leading-relaxed">
+              MEMORIES ARE
+              <br />
+              THE ARCHITECTURE
+              <br />
+              OF IDENTITY
+            </p>
+            <div className="w-16 h-px bg-ink-muted/30 mx-auto mt-4" />
+          </div>
         </div>
       </div>
     ),
@@ -81,38 +126,59 @@ const journalPages = [
   {
     id: 'page-3',
     frontContent: (
-      <div className="p-8 h-full">
-        <div className="grid grid-cols-2 gap-4 h-full">
-          <div className="bg-paper-aged/40 p-4 rounded">
-            <h3 className="vintage-serif text-lg text-ink-brown mb-2">Notes</h3>
-            <div className="space-y-2">
-              <p className="handwriting text-ink-sepia text-sm">• Buy more washi tape</p>
-              <p className="handwriting text-ink-sepia text-sm">• Find vintage postcards</p>
-              <p className="handwriting text-ink-sepia text-sm">• Press autumn leaves</p>
+      <div className="p-6 md:p-8 h-full">
+        <div className="grid grid-cols-2 gap-3 h-full">
+          {/* Left column - Notes */}
+          <div className="space-y-3">
+            <div className="bg-white border border-ink-muted/30 p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 bg-label-red rounded-full" />
+                <span className="typewriter text-ink-black text-xs tracking-wide">TASKS</span>
+              </div>
+              <div className="space-y-1">
+                <p className="typewriter text-ink-main text-[10px]">□ Archive documents</p>
+                <p className="typewriter text-ink-main text-[10px]">□ Catalog specimens</p>
+                <p className="typewriter text-ink-main text-[10px]">□ Update inventory</p>
+              </div>
             </div>
+
+            {/* Security tape */}
+            <div
+              className="h-4 transform -rotate-2"
+              style={{
+                background:
+                  'repeating-linear-gradient(-45deg, #c41e3a 0px, #c41e3a 4px, #fff 4px, #fff 8px)',
+                opacity: 0.6,
+              }}
+            />
           </div>
-          <div className="bg-coffee-stain/20 p-4 rounded transform rotate-1">
-            <div className="border-l-4 border-ink-brown/30 pl-3">
-              <p className="handwriting text-ink-sepia italic">
-                &quot;Art is not what you see,
-                <br />
-                but what you make others see.&quot;
+
+          {/* Right column - Quote */}
+          <div className="flex flex-col">
+            <div className="bg-paper-aged/30 p-3 border-l-2 border-ink-main/20 transform rotate-0.5 flex-1">
+              <p className="typewriter text-ink-main text-[10px] italic leading-relaxed">
+                &quot;ART IS NOT WHAT YOU SEE, BUT WHAT YOU MAKE OTHERS SEE.&quot;
               </p>
-              <p className="typewriter text-ink-faded text-xs mt-2">— Edgar Degas</p>
+              <div className="mt-2 pt-2 border-t border-ink-muted/20">
+                <p className="typewriter text-ink-faded text-[8px] tracking-wider">— E. DEGAS</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     ),
     backContent: (
-      <div className="p-8 h-full flex items-center justify-center">
+      <div className="p-6 md:p-8 h-full flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block border-4 border-double border-ink-faded/40 p-6">
-            <p className="vintage-serif text-ink-brown text-xl mb-2">Ephemera</p>
-            <p className="typewriter text-ink-faded text-xs">
-              fragments of everyday life
+          <div className="inline-block border-2 border-ink-muted/40 p-4">
+            <p className="typewriter text-ink-black text-sm mb-2 tracking-wider">EPHEMERA</p>
+            <div className="w-12 h-px bg-ink-muted/40 mx-auto mb-2" />
+            <p className="typewriter text-ink-faded text-[10px] leading-relaxed">
+              FRAGMENTS OF
               <br />
-              preserved for eternity
+              EVERYDAY LIFE
+              <br />
+              PRESERVED
             </p>
           </div>
         </div>
@@ -122,33 +188,50 @@ const journalPages = [
   {
     id: 'page-4',
     frontContent: (
-      <div className="p-8 h-full relative overflow-hidden">
-        <div className="absolute -top-4 -right-4 w-32 h-32 bg-lace-ivory/50 rounded-full blur-xl" />
-        <h2 className="vintage-serif text-2xl text-ink-brown mb-6 relative z-10">
-          Textures & Layers
-        </h2>
-        <div className="space-y-3 relative z-10">
-          <div className="h-3 bg-gradient-to-r from-wax-red/30 via-coffee-stain/40 to-ink-sepia/20 rounded" />
-          <div className="h-3 bg-gradient-to-r from-paper-dark/40 via-tape-cream/60 to-paper-aged/30 rounded" />
-          <div className="h-3 bg-gradient-to-r from-ink-faded/20 via-wax-burgundy/30 to-coffee-light/40 rounded" />
+      <div className="p-6 md:p-8 h-full relative">
+        {/* CAUTION label */}
+        <div className="absolute top-2 right-2 bg-label-yellow px-2 py-1 transform rotate-3">
+          <span className="typewriter text-label-black text-[8px] tracking-widest">CAUTION</span>
         </div>
-        <p className="handwriting text-ink-sepia mt-6 relative z-10">
-          The magic is in the layers...
+
+        <h2 className="typewriter text-lg text-ink-black mb-4 tracking-wide">MATERIAL SAMPLES</h2>
+
+        <div className="space-y-2">
+          {/* Color/texture strips */}
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-label-red/70 border border-label-red" />
+            <span className="typewriter text-ink-faded text-[10px]">WARNING RED</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-tape-masking border border-ink-muted/20" />
+            <span className="typewriter text-ink-faded text-[10px]">MASKING TAPE</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-ink-black border border-ink-black" />
+            <span className="typewriter text-ink-faded text-[10px]">ARCHIVE BLACK</span>
+          </div>
+        </div>
+
+        {/* Diagonal tape */}
+        <div className="absolute bottom-8 right-4 w-16 h-3 bg-tape-masking transform rotate-45 opacity-60" />
+
+        <p className="typewriter text-ink-muted text-[10px] mt-6">
+          The aesthetic is in the imperfection.
         </p>
       </div>
     ),
     backContent: (
-      <div className="p-8 h-full bg-gradient-to-br from-paper-cream via-paper-aged/50 to-paper-cream">
-        <div className="h-full flex flex-col items-center justify-center gap-6">
-          <div className="flex gap-2">
-            <div className="w-8 h-8 bg-wax-red/60 rounded-full" />
-            <div className="w-8 h-8 bg-coffee-stain/60 rounded-full" />
-            <div className="w-8 h-8 bg-ink-sepia/60 rounded-full" />
+      <div className="p-6 md:p-8 h-full">
+        <div className="h-full flex flex-col items-center justify-center gap-4">
+          <div className="flex gap-3">
+            <div className="w-6 h-6 bg-label-red/60 rounded-full" />
+            <div className="w-6 h-6 bg-tape-masking rounded-full border border-ink-muted/20" />
+            <div className="w-6 h-6 bg-ink-main/60 rounded-full" />
           </div>
-          <p className="typewriter text-ink-faded text-xs text-center">
-            color palette
+          <p className="typewriter text-ink-faded text-[10px] text-center tracking-wider">
+            COLOR PALETTE
             <br />
-            of memories
+            REF: 2024-A
           </p>
         </div>
       </div>
@@ -157,35 +240,50 @@ const journalPages = [
   {
     id: 'page-5',
     frontContent: (
-      <div className="p-8 h-full">
+      <div className="p-6 md:p-8 h-full">
         <div className="h-full flex flex-col">
-          <h2 className="vintage-serif text-xl text-ink-brown mb-4">Hidden Treasures</h2>
-          <div className="flex-1 grid grid-rows-2 gap-4">
-            <div className="bg-paper-stained/40 p-4 rounded shadow-paper relative">
-              <div className="absolute top-2 right-2 w-6 h-6 bg-tape-cream/80 transform rotate-45" />
-              <p className="handwriting text-ink-sepia">A pocket to hold secrets...</p>
-              <p className="typewriter text-ink-faded text-xs mt-2">[coming in phase 4]</p>
+          {/* Label strip header */}
+          <div className="inline-block bg-white border border-ink-muted/30 px-2 py-1 mb-3 self-start">
+            <span className="typewriter text-ink-main text-xs tracking-wide">SECTION 02</span>
+          </div>
+
+          <h2 className="typewriter text-lg text-ink-black mb-3 tracking-wide">STORAGE AREAS</h2>
+
+          <div className="flex-1 grid grid-rows-2 gap-3">
+            {/* Pocket placeholder */}
+            <div className="bg-paper-stained/30 p-3 border border-ink-muted/20 relative">
+              <div className="absolute top-1 right-1 w-5 h-5 bg-tape-masking transform rotate-45 opacity-50" />
+              <p className="typewriter text-ink-main text-[10px]">POCKET STORAGE</p>
+              <p className="typewriter text-ink-faded text-[8px] mt-1">[EXPANSION PLANNED]</p>
             </div>
-            <div className="bg-paper-aged/30 p-4 rounded flex items-center justify-center border border-dashed border-ink-faded/30">
-              <p className="typewriter text-ink-faded/50 text-xs text-center">
-                fold-out section
-                <br />
-                placeholder
-              </p>
+
+            {/* Fold-out placeholder */}
+            <div className="border border-dashed border-ink-muted/30 p-3 flex items-center justify-center">
+              <div className="text-center">
+                <p className="typewriter text-ink-faded/60 text-[10px] tracking-wider">
+                  FOLD-OUT SECTION
+                </p>
+                <p className="typewriter text-ink-faded/40 text-[8px] mt-1">RESERVED</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     ),
     backContent: (
-      <div className="p-8 h-full flex items-center justify-center">
+      <div className="p-6 md:p-8 h-full flex items-center justify-center">
         <div className="text-center">
-          <p className="handwriting text-ink-sepia text-2xl mb-4">The End</p>
-          <p className="typewriter text-ink-faded text-xs">...for now</p>
-          <div className="mt-6 w-16 h-px bg-ink-faded/30 mx-auto" />
-          <p className="handwriting text-ink-faded/60 text-sm mt-4 italic">
-            more pages coming soon
-          </p>
+          <div className="inline-block border border-ink-muted/30 p-4 transform -rotate-1">
+            <p className="typewriter text-ink-black text-sm mb-2 tracking-wider">END OF FILE</p>
+            <div className="w-12 h-px bg-ink-muted/30 mx-auto my-2" />
+            <p className="typewriter text-ink-faded text-[10px]">...FOR NOW</p>
+          </div>
+
+          <div className="mt-4">
+            <p className="typewriter text-ink-faded/50 text-[8px] tracking-wider italic">
+              MORE ENTRIES PENDING
+            </p>
+          </div>
         </div>
       </div>
     ),
