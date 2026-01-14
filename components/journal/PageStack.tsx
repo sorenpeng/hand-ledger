@@ -6,6 +6,7 @@ import { usePageFlip } from '@/hooks/usePageFlip';
 import { useSwipeGesture } from '@/hooks/useSwipeGesture';
 import { cn } from '@/lib/utils';
 import { Page } from './Page';
+import { Pocket, Envelope, Letter, Tag, FlipOut } from '@/components/interactive';
 
 interface PageStackProps {
   className?: string;
@@ -157,21 +158,50 @@ const journalPages = [
   {
     id: 'page-5',
     frontContent: (
-      <div className="p-8 h-full">
-        <div className="h-full flex flex-col">
-          <h2 className="vintage-serif text-xl text-ink-brown mb-4">Hidden Treasures</h2>
-          <div className="flex-1 grid grid-rows-2 gap-4">
-            <div className="bg-paper-stained/40 p-4 rounded shadow-paper relative">
-              <div className="absolute top-2 right-2 w-6 h-6 bg-tape-cream/80 transform rotate-45" />
-              <p className="handwriting text-ink-sepia">A pocket to hold secrets...</p>
-              <p className="typewriter text-ink-faded text-xs mt-2">[coming in phase 4]</p>
+      <div className="p-6 h-full">
+        <div className="h-full flex flex-col gap-4">
+          <h2 className="vintage-serif text-xl text-ink-brown">Interactive Elements</h2>
+          <div className="flex-1 grid grid-cols-2 gap-6">
+            {/* Pocket with hidden note */}
+            <div className="flex flex-col items-center gap-2">
+              <p className="typewriter text-ink-faded text-xs">Click pocket:</p>
+              <Pocket width={140} height={90} pattern="kraft">
+                <p className="handwriting text-ink-sepia text-sm">A secret note! ✨</p>
+              </Pocket>
             </div>
-            <div className="bg-paper-aged/30 p-4 rounded flex items-center justify-center border border-dashed border-ink-faded/30">
-              <p className="typewriter text-ink-faded/50 text-xs text-center">
-                fold-out section
-                <br />
-                placeholder
-              </p>
+
+            {/* Envelope with letter */}
+            <div className="flex flex-col items-center gap-2">
+              <p className="typewriter text-ink-faded text-xs">Open envelope:</p>
+              <Envelope size="sm" color="vintage">
+                <Letter>
+                  <p className="handwriting text-ink-sepia">Dear friend, treasure every moment...</p>
+                </Letter>
+              </Envelope>
+            </div>
+
+            {/* FlipOut section */}
+            <div className="flex flex-col items-center gap-2">
+              <p className="typewriter text-ink-faded text-xs">Unfold:</p>
+              <FlipOut
+                front={
+                  <p className="handwriting text-ink-sepia text-sm">Click to reveal →</p>
+                }
+                back={
+                  <p className="handwriting text-ink-sepia text-sm">Hidden message! 🌸</p>
+                }
+                width={130}
+                height={80}
+                foldFrom="right"
+              />
+            </div>
+
+            {/* Hanging tag */}
+            <div className="flex flex-col items-center gap-2">
+              <p className="typewriter text-ink-faded text-xs">Hover tag:</p>
+              <Tag size="sm" variant="gift" color="#f5f0e1">
+                <p className="handwriting text-ink-brown text-xs">Memories</p>
+              </Tag>
             </div>
           </div>
         </div>
