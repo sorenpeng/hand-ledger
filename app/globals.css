@@ -42,7 +42,7 @@ body {
   background: linear-gradient(135deg, var(--color-desk-wood) 0%, var(--color-desk-dark) 100%);
 }
 
-/* Paper texture utility class */
+/* Paper texture utility class - uses SVG noise for grain effect */
 .paper-texture {
   position: relative;
 }
@@ -51,21 +51,139 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/textures/paper-grain.png');
-  background-repeat: repeat;
-  mix-blend-mode: multiply;
-  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.15;
   pointer-events: none;
 }
 
-/* Torn edge effect */
+/* Heavy paper texture for more aged look */
+.paper-texture-heavy::after {
+  opacity: 0.25;
+}
+
+/* Torn edge effect with shadow */
 .torn-edge {
   filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
 }
 
 /* Aged paper effect */
 .aged-effect {
-  filter: sepia(0.1) contrast(0.95) brightness(0.98);
+  position: relative;
+}
+
+.aged-effect::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(139, 119, 85, 0.05) 25%,
+    transparent 50%,
+    rgba(139, 119, 85, 0.08) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Vignette effect for pages */
+.vignette {
+  position: relative;
+}
+
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+  pointer-events: none;
+}
+
+/* Stronger vignette */
+.vignette-strong::after {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+}
+
+/* Coffee stain background effect */
+.coffee-ring {
+  position: relative;
+}
+
+.coffee-ring::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(166, 123, 91, 0.15) 50%,
+    rgba(166, 123, 91, 0.08) 70%,
+    transparent 80%
+  );
+  pointer-events: none;
+}
+
+/* Page fold/crease effect */
+.page-crease {
+  position: relative;
+}
+
+.page-crease::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 5%,
+    rgba(0, 0, 0, 0.05) 20%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.05) 80%,
+    transparent 95%
+  );
+  pointer-events: none;
+}
+
+/* Tape highlight effect */
+.tape-effect {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+}
+
+/* Wax seal 3D effect */
+.wax-seal-effect {
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 40%
+  ),
+  radial-gradient(
+    circle at 70% 70%,
+    rgba(0, 0, 0, 0.3) 0%,
+    transparent 40%
+  );
+}
+
+/* Ink blot effect */
+.ink-blot {
+  filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='roughen'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.05' numOctaves='2' result='noise'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='3' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/svg%3E#roughen");
 }
 
 /* Handwriting text style */
