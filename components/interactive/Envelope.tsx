@@ -1,9 +1,9 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, type ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
+import { type ReactNode, useState } from 'react';
 import { revealVariants, slowSpring } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 interface EnvelopeProps {
   children?: ReactNode;
@@ -65,11 +65,20 @@ export function Envelope({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
       className={cn('relative cursor-pointer select-none', className)}
       style={{ width, height: height + flapHeight * 0.3 }}
       onClick={(e) => {
         e.stopPropagation();
         setIsOpen(!isOpen);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }
       }}
     >
       {/* Envelope body */}
@@ -85,6 +94,7 @@ export function Envelope({
       >
         {/* Inner fold lines */}
         <svg
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full pointer-events-none"
           preserveAspectRatio="none"
         >
@@ -185,7 +195,8 @@ export function Envelope({
                 height: 24,
                 borderRadius: '50%',
                 backgroundColor: '#8b2323',
-                boxShadow: 'inset 1px 1px 2px rgba(255,255,255,0.2), inset -1px -1px 2px rgba(0,0,0,0.2)',
+                boxShadow:
+                  'inset 1px 1px 2px rgba(255,255,255,0.2), inset -1px -1px 2px rgba(0,0,0,0.2)',
               }}
             />
           )}

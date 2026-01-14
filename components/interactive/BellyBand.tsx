@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, type PanInfo } from 'framer-motion';
-import { useState, type ReactNode } from 'react';
+import { motion, type PanInfo, useMotionValue, useTransform } from 'framer-motion';
+import { type ReactNode, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface BellyBandProps {
@@ -138,9 +138,7 @@ export function BellyBand({
         />
 
         {/* Band content */}
-        <div className="h-full flex items-center justify-center px-4">
-          {children}
-        </div>
+        <div className="h-full flex items-center justify-center px-4">{children}</div>
 
         {/* Slide hint arrow */}
         {!isRemoved && (

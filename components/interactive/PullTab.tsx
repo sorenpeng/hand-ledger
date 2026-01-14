@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, type PanInfo } from 'framer-motion';
-import { useState, type ReactNode } from 'react';
+import { motion, type PanInfo, useMotionValue, useTransform } from 'framer-motion';
+import { type ReactNode, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface PullTabProps {
@@ -41,11 +41,7 @@ export function PullTab({
   const isPositive = direction === 'down' || direction === 'right';
 
   const position = useMotionValue(0);
-  const progress = useTransform(
-    position,
-    [0, isPositive ? maxPull : -maxPull],
-    [0, 1],
-  );
+  const progress = useTransform(position, [0, isPositive ? maxPull : -maxPull], [0, 1]);
 
   const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const relevantOffset = isVertical ? info.offset.y : info.offset.x;
@@ -115,13 +111,9 @@ export function PullTab({
 
   const getDragConstraints = () => {
     if (isVertical) {
-      return direction === 'down'
-        ? { top: 0, bottom: maxPull }
-        : { top: -maxPull, bottom: 0 };
+      return direction === 'down' ? { top: 0, bottom: maxPull } : { top: -maxPull, bottom: 0 };
     }
-    return direction === 'right'
-      ? { left: 0, right: maxPull }
-      : { left: -maxPull, right: 0 };
+    return direction === 'right' ? { left: 0, right: maxPull } : { left: -maxPull, right: 0 };
   };
 
   const tabShape = getTabShape();
@@ -129,28 +121,27 @@ export function PullTab({
   return (
     <div className={cn('relative', className)}>
       {/* Main content container */}
-      <div
-        className="relative overflow-hidden"
-        style={{ backgroundColor: containerColor }}
-      >
+      <div className="relative overflow-hidden" style={{ backgroundColor: containerColor }}>
         {children}
 
         {/* Revealed content area */}
         <motion.div
           className="absolute"
           style={{
-            [direction === 'down' ? 'top' : direction === 'up' ? 'bottom' : direction === 'left' ? 'right' : 'left']:
-              '100%',
+            [direction === 'down'
+              ? 'top'
+              : direction === 'up'
+                ? 'bottom'
+                : direction === 'left'
+                  ? 'right'
+                  : 'left']: '100%',
             width: isVertical ? '100%' : maxPull,
             height: isVertical ? maxPull : '100%',
             backgroundColor: containerColor,
             opacity: progress,
           }}
         >
-          <motion.div
-            className="p-3"
-            style={{ opacity: progress }}
-          >
+          <motion.div className="p-3" style={{ opacity: progress }}>
             {hiddenContent}
           </motion.div>
         </motion.div>
@@ -238,8 +229,16 @@ export function SlideReveal({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
       className={cn('relative overflow-hidden cursor-pointer', className)}
       onClick={() => setIsRevealed(!isRevealed)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setIsRevealed(!isRevealed);
+        }
+      }}
     >
       <motion.div
         animate={{

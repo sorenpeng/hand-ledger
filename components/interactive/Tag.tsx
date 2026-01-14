@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, type ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import { type ReactNode, useState } from 'react';
 import { tagSwingVariants } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 interface TagProps {
   children?: ReactNode;
@@ -90,6 +90,7 @@ export function Tag({
     >
       {/* String */}
       <svg
+        aria-hidden="true"
         className="absolute top-0 left-1/2 -translate-x-1/2"
         width={40}
         height={35}
@@ -235,10 +236,7 @@ interface LabelTagProps {
 export function LabelTag({ children, color = '#f5f0e1', className }: LabelTagProps) {
   return (
     <motion.div
-      className={cn(
-        'inline-flex items-center px-3 py-1 text-xs',
-        className,
-      )}
+      className={cn('inline-flex items-center px-3 py-1 text-xs', className)}
       style={{
         backgroundColor: color,
         clipPath: 'polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%)',

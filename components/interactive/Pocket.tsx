@@ -1,9 +1,9 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, type ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
+import { type ReactNode, useState } from 'react';
 import { pocketVariants, revealVariants, staggerContainer } from '@/lib/animations';
+import { cn } from '@/lib/utils';
 
 interface PocketProps {
   children?: ReactNode;
@@ -59,11 +59,20 @@ export function Pocket({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
       className={cn('relative cursor-pointer', className)}
       style={{ width, height: height + flapHeight }}
       onClick={(e) => {
         e.stopPropagation();
         setIsOpen(!isOpen);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsOpen(!isOpen);
+        }
       }}
     >
       {/* Pocket body */}
@@ -112,9 +121,7 @@ export function Pocket({
           transformOrigin: 'bottom center',
           transformStyle: 'preserve-3d',
           clipPath: 'polygon(0 0, 50% 30%, 100% 0, 100% 100%, 0 100%)',
-          boxShadow: isOpen
-            ? '0 -2px 8px rgba(0,0,0,0.2)'
-            : '0 2px 4px rgba(0,0,0,0.1)',
+          boxShadow: isOpen ? '0 -2px 8px rgba(0,0,0,0.2)' : '0 2px 4px rgba(0,0,0,0.1)',
         }}
         variants={pocketVariants}
         initial="closed"

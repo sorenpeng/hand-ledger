@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, type ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface FlipOutProps {
@@ -74,6 +74,8 @@ export function FlipOut({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
       className={cn('relative cursor-pointer', className)}
       style={{
         width: isHorizontal ? (isUnfolded ? width * 2 : width) : width,
@@ -84,6 +86,13 @@ export function FlipOut({
       onClick={(e) => {
         e.stopPropagation();
         setIsUnfolded(!isUnfolded);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          e.stopPropagation();
+          setIsUnfolded(!isUnfolded);
+        }
       }}
     >
       {/* Back content (revealed) */}
@@ -193,8 +202,17 @@ export function AccordionFlipOut({
     setExpandedCount((prev) => (prev >= panels.length - 1 ? 0 : prev + 1));
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
+  };
+
   return (
     <div
+      role="button"
+      tabIndex={0}
       className={cn('relative cursor-pointer', className)}
       style={{
         width: panelWidth + expandedCount * panelWidth,
@@ -203,6 +221,7 @@ export function AccordionFlipOut({
         transition: 'width 0.5s ease',
       }}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
     >
       {panels.map((panel, index) => {
         const isExpanded = index < expandedCount;
@@ -218,7 +237,7 @@ export function AccordionFlipOut({
               backgroundColor: adjustColor(color, -index * 5),
               transformOrigin: 'left center',
               transformStyle: 'preserve-3d',
-              left: isExpanded ? index * panelWidth : (index === 0 ? 0 : 0),
+              left: isExpanded ? index * panelWidth : index === 0 ? 0 : 0,
               zIndex: panels.length - index,
               boxShadow: isNext ? '2px 0 8px rgba(0,0,0,0.15)' : 'none',
             }}
