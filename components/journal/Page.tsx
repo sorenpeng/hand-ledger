@@ -62,50 +62,41 @@ export function Page({
       <div
         className={cn(
           'absolute inset-0 backface-hidden',
-          'bg-paper-cream rounded-r-sm',
+          'bg-paper-base rounded-r-sm',
           'overflow-hidden',
+          'border-r border-black/10'
         )}
         style={{
-          boxShadow: `2px 0 10px rgba(0, 0, 0, 0.15)`,
+          boxShadow: `2px 0 5px rgba(0, 0, 0, 0.1)`,
         }}
       >
-        {/* Paper texture overlay */}
-        <div className="absolute inset-0 paper-texture" />
+        {/* Textures */}
+        <div className="absolute inset-0 texture-grain opacity-50" />
+        <div className="absolute inset-0 texture-scuff opacity-30 mix-blend-multiply" />
 
-        {/* Aged effect */}
-        <div className="absolute inset-0 aged-effect" />
-
-        {/* Subtle vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.05) 100%)',
-          }}
-        />
-
+        {/* Binding Tape (Left side) */}
+        <div className="absolute top-0 bottom-0 left-0 w-8 bg-tape-masking opacity-90 backdrop-blur-[1px] border-r border-white/20 shadow-sm z-20">
+             <div className="absolute right-0 top-0 bottom-0 w-px bg-black/10" />
+        </div>
+        
         {/* Page content */}
-        <div className="relative z-10 h-full">{frontContent}</div>
+        <div className="relative z-10 h-full pl-8">{frontContent}</div>
 
         {/* Right edge gradient (page thickness illusion) */}
         <div
           className="absolute right-0 top-0 bottom-0 w-6 pointer-events-none"
           style={{
-            background: 'linear-gradient(to left, rgba(0,0,0,0.08), transparent)',
+            background: 'linear-gradient(to left, rgba(0,0,0,0.05), transparent)',
           }}
         />
-
-        {/* Corner page curl hint */}
+        
+        {/* Corner Hover Hint */}
         {isActive && (
-          <div className="absolute bottom-0 right-0 w-12 h-12 pointer-events-none overflow-hidden opacity-50 hover:opacity-80 transition-opacity">
-            <div
-              className="absolute bottom-0 right-0 w-16 h-16"
-              style={{
-                background: `linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.05) 45%, rgba(0,0,0,0.08) 50%, ${getCssVar('--color-paper-aged')} 50%)`,
-                transform: 'rotate(0deg)',
-              }}
-            />
-          </div>
+           <div className="absolute bottom-0 right-0 w-16 h-16 pointer-events-none opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-2 right-2 text-[0.6rem] font-industrial uppercase tracking-widest text-ink-faded/50 animate-pulse">
+                Click to Flip
+              </div>
+           </div>
         )}
       </div>
 
@@ -116,47 +107,40 @@ export function Page({
           'bg-paper-aged rounded-l-sm',
           '[transform:rotateY(180deg)]',
           'overflow-hidden',
+          'border-l border-black/10'
         )}
         style={{
-          boxShadow: `-2px 0 8px rgba(0, 0, 0, 0.12)`,
+          boxShadow: `-2px 0 5px rgba(0, 0, 0, 0.1)`,
         }}
       >
-        {/* Paper texture overlay */}
-        <div className="absolute inset-0 paper-texture" />
+        {/* Textures */}
+        <div className="absolute inset-0 texture-grain opacity-60" />
+        <div className="absolute inset-0 texture-scuff opacity-40 mix-blend-multiply" />
 
-        {/* Aged effect - slightly more aged on back */}
-        <div className="absolute inset-0 aged-effect opacity-70" />
-
-        {/* Subtle coffee stain at random position */}
-        <div
-          className="absolute w-32 h-32 rounded-full pointer-events-none opacity-10"
-          style={{
-            background: `radial-gradient(ellipse at center, ${getCssVar('--color-coffee-light')}, transparent 70%)`,
-            top: '60%',
-            left: '20%',
-            transform: 'rotate(-15deg) scale(1.5, 1)',
-          }}
-        />
+        {/* Binding Tape (Right side because flipped) */}
+        <div className="absolute top-0 bottom-0 right-0 w-8 bg-tape-masking opacity-90 backdrop-blur-[1px] border-l border-white/20 shadow-sm z-20">
+            <div className="absolute left-0 top-0 bottom-0 w-px bg-black/10" />
+        </div>
 
         {/* Back content */}
-        <div className="relative z-10 h-full">
+        <div className="relative z-10 h-full pr-8">
           {backContent || (
             <div className="h-full flex items-center justify-center">
-              <span className="text-ink-faded/30 typewriter text-xs">blank page</span>
+              <span className="text-ink-faded/20 font-industrial text-xs tracking-[0.3em] uppercase rotate-90">Intentionally Blank</span>
             </div>
           )}
         </div>
 
-        {/* Left edge gradient (page thickness illusion) */}
+        {/* Left edge shadow */}
         <div
           className="absolute left-0 top-0 bottom-0 w-6 pointer-events-none"
           style={{
-            background: 'linear-gradient(to right, rgba(0,0,0,0.1), transparent)',
+            background: 'linear-gradient(to right, rgba(0,0,0,0.05), transparent)',
           }}
         />
       </div>
 
-      {/* Dynamic shadow during flip (cast on pages below) */}
+      {/* Dynamic shadow during flip */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -172,8 +156,4 @@ export function Page({
   );
 }
 
-// Helper to safely get CSS custom property value
-function getCssVar(name: string): string {
-  if (typeof window === 'undefined') return '';
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#e8dcc4';
-}
+

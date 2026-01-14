@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { easings } from '@/lib/animations';
 import { cn } from '@/lib/utils';
+import { WarningLabel } from '@/components/decorative/WarningLabel';
+import { Tape } from '@/components/decorative/Tape';
 
 interface JournalCoverProps {
   isOpen: boolean;
@@ -31,45 +33,50 @@ export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps)
       <div
         className={cn(
           'absolute inset-0 backface-hidden',
-          'bg-gradient-to-br from-amber-900 via-amber-800 to-amber-950',
+          'bg-cover-dark',
           'rounded-r-sm shadow-lifted',
           'flex flex-col items-center justify-center',
-          'border-r-4 border-amber-950/50',
+          'border-r-4 border-cover-accent/50',
         )}
       >
         {/* Cover texture overlay */}
-        <div
-          className="absolute inset-0 opacity-20 rounded-r-sm"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-            mixBlendMode: 'overlay',
-          }}
-        />
+        <div className="absolute inset-0 texture-grain opacity-60 rounded-r-sm" />
+        <div className="absolute inset-0 texture-scuff opacity-40 mix-blend-overlay" />
 
-        {/* Decorative border */}
-        <div className="absolute inset-4 border-2 border-amber-700/30 rounded-sm" />
-        <div className="absolute inset-6 border border-amber-600/20 rounded-sm" />
+        {/* Industrial Border */}
+        <div className="absolute inset-6 border-2 border-dashed border-white/10 rounded-sm" />
 
-        {/* Title */}
-        <div className="relative z-10 text-center px-8">
-          <h1 className="vintage-serif text-4xl md:text-5xl text-amber-100/90 tracking-wide mb-2">
+        {/* Tape Elements */}
+        <Tape className="top-10 -right-4 rotate-[15deg]" variant="masking" />
+        <Tape className="bottom-20 -left-6 rotate-[-5deg]" variant="warning" />
+
+        {/* Title Block */}
+        <div className="relative z-10 text-center px-8 p-12 border-2 border-white/20 bg-black/20 backdrop-blur-sm transform -rotate-1">
+          <h1 className="font-industrial text-4xl md:text-5xl text-white/90 tracking-wider mb-2 uppercase">
             Hand Ledger
           </h1>
-          <div className="w-32 h-px bg-amber-600/40 mx-auto my-4" />
-          <p className="handwriting text-xl text-amber-200/70">A Junk Journal</p>
+          <div className="w-full h-px bg-white/20 mx-auto my-4" />
+          <p className="font-industrial text-sm text-white/50 tracking-[0.2em] uppercase">
+            Auth. Personnel Only // Level 4
+          </p>
+          
+          {/* Rivets */}
+          <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-white/10" />
+          <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-white/10" />
+          <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-white/10" />
+          <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-white/10" />
         </div>
 
-        {/* Corner decorations */}
-        <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-amber-600/30 rounded-tl-sm" />
-        <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-amber-600/30 rounded-tr-sm" />
-        <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-amber-600/30 rounded-bl-sm" />
-        <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-amber-600/30 rounded-br-sm" />
+        {/* Warning Label */}
+        <div className="absolute bottom-12 right-12 transform rotate-2">
+            <WarningLabel text="CONFIDENTIAL" subtext="DO NOT REMOVE" variant="red" />
+        </div>
 
         {/* Spine shadow */}
         <div
-          className="absolute left-0 top-0 bottom-0 w-4"
+          className="absolute left-0 top-0 bottom-0 w-8"
           style={{
-            background: 'linear-gradient(to right, rgba(0,0,0,0.4), transparent)',
+            background: 'linear-gradient(to right, rgba(0,0,0,0.8), transparent)',
           }}
         />
       </div>
@@ -78,31 +85,45 @@ export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps)
       <div
         className={cn(
           'absolute inset-0 backface-hidden',
-          'bg-paper-cream',
+          'bg-gray-900',
           'rounded-l-sm',
           '[transform:rotateY(180deg)]',
         )}
       >
         {/* Inside cover content */}
         <div className="absolute inset-0 p-8 flex flex-col">
-          {/* Aged paper effect */}
-          <div className="absolute inset-0 aged-effect opacity-50" />
+          {/* Textures */}
+          <div className="absolute inset-0 texture-grain opacity-40" />
+          <div className="absolute inset-0 bg-cover-accent/10" />
 
-          {/* Handwritten note */}
-          <div className="relative z-10 handwriting text-ink-sepia text-lg leading-relaxed">
-            <p className="mb-4">This journal belongs to...</p>
-            <div className="w-48 h-px bg-ink-sepia/30 mb-8" />
-            <p className="text-sm text-ink-faded italic">
-              &quot;Every page tells a story,
-              <br />
-              every pocket holds a secret.&quot;
-            </p>
+          {/* Property Of Card */}
+          <div className="relative z-10 bg-paper-base p-6 shadow-sm transform rotate-1 max-w-sm mt-10 mx-auto w-full">
+            <Tape className="-top-3 left-1/2 -translate-x-1/2" variant="clear" />
+            
+            <h3 className="font-industrial text-lg font-bold mb-4 uppercase tracking-wider text-ink-main border-b-2 border-black pb-2">
+              Property Log
+            </h3>
+            
+            <div className="space-y-4 font-industrial text-sm text-ink-main/80">
+              <div className="flex justify-between border-b border-black/20 pb-1">
+                <span>UNIT:</span>
+                <span className="font-mono">734-ALPHA</span>
+              </div>
+              <div className="flex justify-between border-b border-black/20 pb-1">
+                <span>HOLDER:</span>
+                <span className="font-mono text-ink-red">UNASSIGNED</span>
+              </div>
+              <div className="flex justify-between border-b border-black/20 pb-1">
+                <span>STATUS:</span>
+                <span className="font-bold">ACTIVE</span>
+              </div>
+            </div>
+            
+             <div className="mt-6 text-[0.6rem] uppercase tracking-widest text-center opacity-50">
+                Form 82-B // Dept of Records
+             </div>
           </div>
 
-          {/* Decorative stamp placeholder */}
-          <div className="absolute bottom-8 right-8 w-16 h-16 rounded-full border-2 border-dashed border-ink-faded/30 flex items-center justify-center">
-            <span className="text-ink-faded/40 text-xs typewriter">STAMP</span>
-          </div>
         </div>
       </div>
     </motion.div>

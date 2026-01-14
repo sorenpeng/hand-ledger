@@ -14,7 +14,7 @@ export function Journal({ className }: JournalProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={cn('relative preserve-3d', 'w-[90vw] max-w-[900px] aspect-[3/2]', className)}>
+    <div className={cn('relative preserve-3d', 'w-[90vw] max-w-[1000px] aspect-[10/8.25]', className)}>
       {/* Journal container with 3D perspective */}
       <div className="relative w-full h-full preserve-3d">
         {/* Back cover (always visible when open) */}
@@ -26,20 +26,16 @@ export function Journal({ className }: JournalProps) {
               exit={{ opacity: 0 }}
               className={cn(
                 'absolute inset-0',
-                'bg-gradient-to-br from-amber-950 via-amber-900 to-amber-950',
-                'rounded-sm shadow-lifted',
+                'bg-cover-dark',
+                'rounded-sm shadow-deep',
+                'border border-white/5'
               )}
             >
-              {/* Texture overlay */}
-              <div
-                className="absolute inset-0 opacity-10"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-                  mixBlendMode: 'overlay',
-                }}
-              />
+              {/* Industrial Grain Texture */}
+              <div className="absolute inset-0 texture-grain opacity-80" />
+              
               {/* Spine line */}
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-950/50" />
+              <div className="absolute left-0 top-0 bottom-0 w-2 bg-black/50 border-r border-white/5" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -70,9 +66,9 @@ export function Journal({ className }: JournalProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-paper-aged/60 text-sm typewriter"
+            className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-white/40 text-sm font-industrial tracking-widest uppercase"
           >
-            Click to open the journal
+            [ Click to Open Log ]
           </motion.div>
         ) : (
           <motion.div
@@ -80,9 +76,9 @@ export function Journal({ className }: JournalProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0, transition: { delay: 0.5 } }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-paper-aged/40 text-xs typewriter text-center"
+            className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-white/20 text-xs font-industrial tracking-widest uppercase text-center"
           >
-            Use arrow keys, click, or swipe to turn pages
+            Use arrow keys / click corners
           </motion.div>
         )}
       </AnimatePresence>
