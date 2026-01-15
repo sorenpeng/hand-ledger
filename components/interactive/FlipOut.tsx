@@ -70,12 +70,27 @@ export function FlipOut({
     }
   };
 
+  const getBackContentPosition = (): React.CSSProperties => {
+    switch (foldFrom) {
+      case 'right':
+        return { right: 0, top: 0 };
+      case 'left':
+        return { left: 0, top: 0 };
+      case 'bottom':
+        return { bottom: 0, left: 0 };
+      case 'top':
+        return { top: 0, left: 0 };
+    }
+  };
+
   const isHorizontal = foldFrom === 'left' || foldFrom === 'right';
 
   return (
     <div
       role="button"
       tabIndex={0}
+      aria-expanded={isUnfolded}
+      aria-label="Foldable content section"
       className={cn('relative cursor-pointer', className)}
       style={{
         width: isHorizontal ? (isUnfolded ? width * 2 : width) : width,
@@ -102,8 +117,7 @@ export function FlipOut({
           width,
           height,
           backgroundColor: color,
-          [foldFrom === 'right' ? 'right' : foldFrom === 'left' ? 'left' : 'left']: 0,
-          [foldFrom === 'bottom' ? 'bottom' : foldFrom === 'top' ? 'top' : 'top']: 0,
+          ...getBackContentPosition(),
           boxShadow: 'inset 0 0 20px rgba(0,0,0,0.05)',
         }}
         initial={{ opacity: 0 }}
@@ -213,6 +227,8 @@ export function AccordionFlipOut({
     <div
       role="button"
       tabIndex={0}
+      aria-expanded={expandedCount > 0}
+      aria-label={`Accordion panels, ${expandedCount} of ${panels.length - 1} expanded`}
       className={cn('relative cursor-pointer', className)}
       style={{
         width: panelWidth + expandedCount * panelWidth,
@@ -237,13 +253,13 @@ export function AccordionFlipOut({
               backgroundColor: adjustColor(color, -index * 5),
               transformOrigin: 'left center',
               transformStyle: 'preserve-3d',
-              left: isExpanded ? index * panelWidth : index === 0 ? 0 : 0,
+              left: 0,
               zIndex: panels.length - index,
               boxShadow: isNext ? '2px 0 8px rgba(0,0,0,0.15)' : 'none',
             }}
             animate={{
-              rotateY: isExpanded ? 0 : 0,
-              x: isExpanded ? 0 : 0,
+              rotateY: isExpanded ? -180 : 0,
+              x: isExpanded ? index * panelWidth : 0,
             }}
             transition={{
               type: 'spring',

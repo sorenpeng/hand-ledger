@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { FlipDirection } from '@/types/journal';
 
 interface UsePageFlipReturn {
@@ -19,6 +19,16 @@ export function usePageFlip(totalPages: number): UsePageFlipReturn {
   const [currentPage, setCurrentPage] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
   const [flipDirection, setFlipDirection] = useState<FlipDirection | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const flipPage = useCallback(
     (direction: FlipDirection) => {
@@ -27,14 +37,19 @@ export function usePageFlip(totalPages: number): UsePageFlipReturn {
       const nextPage = direction === 'forward' ? currentPage + 1 : currentPage - 1;
 
       // Bounds check
-      if (nextPage < 0 || nextPage > totalPages) return;
+      if (nextPage < 0 || nextPage >= totalPages) return;
 
       setIsFlipping(true);
       setFlipDirection(direction);
       setCurrentPage(nextPage);
 
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
       // Reset flipping state after animation
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setIsFlipping(false);
         setFlipDirection(null);
       }, 800);
@@ -45,7 +60,7 @@ export function usePageFlip(totalPages: number): UsePageFlipReturn {
   const goToPage = useCallback(
     (pageIndex: number) => {
       if (isFlipping) return;
-      if (pageIndex < 0 || pageIndex > totalPages) return;
+      if (pageIndex < 0 || pageIndex >= totalPages) return;
 
       setCurrentPage(pageIndex);
     },
