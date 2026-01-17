@@ -13,19 +13,31 @@ interface JournalCoverProps {
 export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps) {
   return (
     <motion.div
-      className={cn('absolute inset-0 cursor-pointer', 'origin-left preserve-3d', className)}
+      className={cn(
+        'absolute inset-0',
+        'origin-left preserve-3d',
+        // When open, disable pointer events so clicks go through to PageStack
+        // Only the front face (visible when closed) should be clickable
+        isOpen ? 'pointer-events-none' : 'cursor-pointer',
+        className,
+      )}
       initial={false}
       animate={{
         rotateY: isOpen ? -170 : 0,
+        // Lower z-index when open to avoid z-fighting with pages
+        zIndex: isOpen ? 0 : 100,
       }}
       transition={{
         duration: 0.8,
         ease: easings.pageTurn,
       }}
-      onClick={onToggle}
+      onClick={isOpen ? undefined : onToggle}
       style={{
         transformStyle: 'preserve-3d',
       }}
+      role="button"
+      aria-label={isOpen ? 'Journal cover (open)' : 'Open journal'}
+      tabIndex={isOpen ? -1 : 0}
     >
       {/* Front face of cover */}
       <div

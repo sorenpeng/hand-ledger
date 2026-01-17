@@ -49,10 +49,12 @@ export function usePageFlip(totalPages: number): UsePageFlipReturn {
       }
 
       // Reset flipping state after animation
+      // Use 600ms instead of 800ms to allow faster consecutive flips
+      // while still preventing double-triggers during the critical animation phase
       timeoutRef.current = setTimeout(() => {
         setIsFlipping(false);
         setFlipDirection(null);
-      }, 800);
+      }, 600);
     },
     [currentPage, isFlipping, totalPages],
   );

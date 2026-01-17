@@ -11,7 +11,8 @@ interface PageProps {
   totalPages: number;
   frontContent: ReactNode;
   backContent?: ReactNode;
-  onClick?: () => void;
+  onClickForward?: () => void;
+  onClickBackward?: () => void;
   className?: string;
 }
 
@@ -21,7 +22,8 @@ export function Page({
   totalPages,
   frontContent,
   backContent,
-  onClick,
+  onClickForward,
+  onClickBackward,
   className,
 }: PageProps) {
   const isFlipped = index < currentPage;
@@ -36,11 +38,25 @@ export function Page({
   const shadowBlur = useTransform(rotateY, [-180, -90, 0], [0, 30, 0]);
   const shadowX = useTransform(rotateY, [-180, -90, 0], [0, 40, 0]);
 
+  // Determine click handler based on page state
+  // Active pages (right side): click to flip forward
+  // Flipped pages (left side): click to flip backward
+  const handleClick = isActive ? onClickForward : isFlipped ? onClickBackward : undefined;
+
+  const isClickable = isActive || isFlipped;
+
+  // Generate accessible label based on page state
+  const ariaLabel = isActive
+    ? `Page ${index + 1} of ${totalPages} - Click to flip forward`
+    : isFlipped
+      ? `Page ${index + 1} (flipped) - Click to flip backward`
+      : `Page ${index + 1} (upcoming)`;
+
   return (
     <motion.div
       className={cn(
         'absolute inset-0 origin-left preserve-3d',
-        isActive && 'cursor-pointer',
+        isClickable && 'cursor-pointer',
         className,
       )}
       initial={false}
@@ -56,7 +72,11 @@ export function Page({
         transformStyle: 'preserve-3d',
         rotateY,
       }}
-      onClick={isActive ? onClick : undefined}
+      onClick={handleClick}
+      role={isClickable ? 'button' : undefined}
+      aria-label={ariaLabel}
+      data-page-index={index}
+      data-page-state={isActive ? 'active' : isFlipped ? 'flipped' : 'upcoming'}
     >
       {/* Front face */}
       <div

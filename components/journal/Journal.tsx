@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { DebugHUD } from '../debug/DebugHUD';
 import { JournalCover } from './JournalCover';
 import { PageStack } from './PageStack';
 
@@ -86,6 +87,9 @@ export function Journal({ className }: JournalProps) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Debug HUD - enable with ?debug=1 */}
+      <DebugHUD isOpen={isOpen} />
     </div>
   );
 }

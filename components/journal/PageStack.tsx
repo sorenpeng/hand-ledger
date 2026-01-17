@@ -38,9 +38,15 @@ export function PageStack({ className }: PageStackProps) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [flipPage]);
 
-  const handlePageClick = useCallback(() => {
+  const handlePageClickForward = useCallback(() => {
     if (!isFlipping) {
       flipPage('forward');
+    }
+  }, [flipPage, isFlipping]);
+
+  const handlePageClickBackward = useCallback(() => {
+    if (!isFlipping) {
+      flipPage('backward');
     }
   }, [flipPage, isFlipping]);
 
@@ -65,7 +71,8 @@ export function PageStack({ className }: PageStackProps) {
           totalPages={totalPages}
           frontContent={page.frontContent}
           backContent={page.backContent}
-          onClick={handlePageClick}
+          onClickForward={handlePageClickForward}
+          onClickBackward={handlePageClickBackward}
         />
       ))}
 
@@ -151,6 +158,7 @@ function NavigationControls({
         type="button"
         onClick={onPrev}
         disabled={!canGoPrev || isFlipping}
+        aria-label="Flip backward"
         className={cn(
           'typewriter text-xs transition-all duration-200',
           canGoPrev && !isFlipping
@@ -183,6 +191,7 @@ function NavigationControls({
         type="button"
         onClick={onNext}
         disabled={!canGoNext || isFlipping}
+        aria-label="Flip forward"
         className={cn(
           'typewriter text-xs transition-all duration-200',
           canGoNext && !isFlipping
