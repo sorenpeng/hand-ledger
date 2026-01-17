@@ -61,6 +61,7 @@ export function Pocket({
     <div
       role="button"
       tabIndex={0}
+      data-page-interactive="true"
       className={cn('relative cursor-pointer', className)}
       style={{ width, height: height + flapHeight }}
       onClick={(e) => {

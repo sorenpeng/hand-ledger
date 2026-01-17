@@ -1,7 +1,8 @@
 'use client';
 
 import type { PanInfo } from 'framer-motion';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import { isInteractiveTarget } from '@/lib/interaction';
 
 interface UseSwipeGestureOptions {
   threshold?: number;
@@ -10,7 +11,7 @@ interface UseSwipeGestureOptions {
 }
 
 interface UseSwipeGestureReturn {
-  onDragStart: () => void;
+  onDragStart: (event: MouseEvent | TouchEvent | PointerEvent) => void;
   onDragEnd: (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
   isDragging: boolean;
   dragX: number;
@@ -26,8 +27,17 @@ export function useSwipeGesture({
 }: UseSwipeGestureOptions): UseSwipeGestureReturn {
   const [isDragging, setIsDragging] = useState(false);
   const [dragX, setDragX] = useState(0);
+  const ignoreSwipeRef = useRef(false);
 
-  const onDragStart = useCallback(() => {
+  const onDragStart = useCallback((event: MouseEvent | TouchEvent | PointerEvent) => {
+    if (isInteractiveTarget(event.target)) {
+      ignoreSwipeRef.current = true;
+      setIsDragging(false);
+      setDragX(0);
+      return;
+    }
+
+    ignoreSwipeRef.current = false;
     setIsDragging(true);
   }, []);
 
@@ -35,6 +45,11 @@ export function useSwipeGesture({
     (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
       setIsDragging(false);
       setDragX(0);
+
+      if (ignoreSwipeRef.current) {
+        ignoreSwipeRef.current = false;
+        return;
+      }
 
       const velocity = info.velocity.x;
       const offset = info.offset.x;

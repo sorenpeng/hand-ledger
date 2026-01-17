@@ -18,7 +18,7 @@ export function JournalCover({ isOpen, onToggle, className }: JournalCoverProps)
         'origin-left preserve-3d',
         // When open, disable pointer events so clicks go through to PageStack
         // Only the front face (visible when closed) should be clickable
-        isOpen ? 'pointer-events-none' : 'cursor-pointer',
+        isOpen ? 'pointer-events-none [&_*]:pointer-events-none' : 'cursor-pointer',
         className,
       )}
       initial={false}

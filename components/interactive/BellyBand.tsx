@@ -89,7 +89,7 @@ export function BellyBand({
   };
 
   return (
-    <div className={cn('relative overflow-hidden', className)}>
+    <div className={cn('relative overflow-hidden', className)} data-page-interactive="true">
       {/* Hidden content underneath */}
       <motion.div
         className="absolute inset-0 flex items-center justify-center"

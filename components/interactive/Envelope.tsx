@@ -67,6 +67,7 @@ export function Envelope({
     <div
       role="button"
       tabIndex={0}
+      data-page-interactive="true"
       className={cn('relative cursor-pointer select-none', className)}
       style={{ width, height: height + flapHeight * 0.3 }}
       onClick={(e) => {

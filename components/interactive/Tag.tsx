@@ -83,6 +83,7 @@ export function Tag({
   return (
     <div
       className={cn('relative', className)}
+      data-page-interactive="true"
       style={{
         width,
         paddingTop: 30, // Space for string

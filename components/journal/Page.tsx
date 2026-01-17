@@ -1,7 +1,8 @@
 'use client';
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import type { ReactNode } from 'react';
+import type { MouseEvent as ReactMouseEvent, ReactNode } from 'react';
+import { isInteractiveTarget } from '@/lib/interaction';
 import { easings } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 
@@ -38,11 +39,6 @@ export function Page({
   const shadowBlur = useTransform(rotateY, [-180, -90, 0], [0, 30, 0]);
   const shadowX = useTransform(rotateY, [-180, -90, 0], [0, 40, 0]);
 
-  // Determine click handler based on page state
-  // Active pages (right side): click to flip forward
-  // Flipped pages (left side): click to flip backward
-  const handleClick = isActive ? onClickForward : isFlipped ? onClickBackward : undefined;
-
   const isClickable = isActive || isFlipped;
 
   // Generate accessible label based on page state
@@ -51,6 +47,18 @@ export function Page({
     : isFlipped
       ? `Page ${index + 1} (flipped) - Click to flip backward`
       : `Page ${index + 1} (upcoming)`;
+
+  const handleClick = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (!isClickable) return;
+    if (event.defaultPrevented) return;
+    if (isInteractiveTarget(event.target)) return;
+
+    if (isActive) {
+      onClickForward?.();
+    } else if (isFlipped) {
+      onClickBackward?.();
+    }
+  };
 
   return (
     <motion.div
@@ -72,7 +80,7 @@ export function Page({
         transformStyle: 'preserve-3d',
         rotateY,
       }}
-      onClick={handleClick}
+      onClick={isClickable ? handleClick : undefined}
       role={isClickable ? 'button' : undefined}
       aria-label={ariaLabel}
       data-page-index={index}

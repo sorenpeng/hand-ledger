@@ -119,7 +119,7 @@ export function PullTab({
   const tabShape = getTabShape();
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('relative', className)} data-page-interactive="true">
       {/* Main content container */}
       <div className="relative overflow-hidden" style={{ backgroundColor: containerColor }}>
         {children}
@@ -231,6 +231,7 @@ export function SlideReveal({
     <div
       role="button"
       tabIndex={0}
+      data-page-interactive="true"
       className={cn('relative overflow-hidden cursor-pointer', className)}
       onClick={() => setIsRevealed(!isRevealed)}
       onKeyDown={(e) => {

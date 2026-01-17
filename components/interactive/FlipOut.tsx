@@ -91,6 +91,7 @@ export function FlipOut({
       tabIndex={0}
       aria-expanded={isUnfolded}
       aria-label="Foldable content section"
+      data-page-interactive="true"
       className={cn('relative cursor-pointer', className)}
       style={{
         width: isHorizontal ? (isUnfolded ? width * 2 : width) : width,
@@ -229,6 +230,7 @@ export function AccordionFlipOut({
       tabIndex={0}
       aria-expanded={expandedCount > 0}
       aria-label={`Accordion panels, ${expandedCount} of ${panels.length - 1} expanded`}
+      data-page-interactive="true"
       className={cn('relative cursor-pointer', className)}
       style={{
         width: panelWidth + expandedCount * panelWidth,
