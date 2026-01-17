@@ -36,3 +36,6 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local interaction recordings (do not commit)
+docs/log/*.mp4
