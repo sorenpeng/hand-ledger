@@ -2,8 +2,8 @@
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import type { MouseEvent as ReactMouseEvent, ReactNode } from 'react';
-import { isInteractiveTarget } from '@/lib/interaction';
 import { easings } from '@/lib/animations';
+import { isInteractiveTarget } from '@/lib/interaction';
 import { cn } from '@/lib/utils';
 
 interface PageProps {
