@@ -1,6 +1,12 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -15,9 +21,6 @@
       },
       "suspicious": {
         "noExplicitAny": "warn"
-      },
-      "a11y": {
-        "useSemanticElements": "off"
       }
     }
   },
@@ -41,6 +44,13 @@
     }
   },
   "files": {
-    "includes": ["**", "!**/.next", "!**/node_modules", "!**/dist", "!**/bun.lock", "!**/*.css"]
+    "includes": [
+      "**",
+      "!**/.next",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/bun.lock",
+      "!next-env.d.ts"
+    ]
   }
 }
